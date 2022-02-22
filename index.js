@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express()
 const axios = require("axios")
-const port = process.env.POST || 3000
+const port = process.env.PORT || 3000
 const cors = require("cors")
 
 app.use(cors({
@@ -18,4 +18,4 @@ app.get(":endpoint([\\/\\w\\.-]*)", (req, res) => {
     })
 })
 
-app.listen(3000)
+app.listen(port)
