@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express()
 const axios = require("axios")
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 4000
 const cors = require("cors")
 
 app.use(cors({
@@ -9,13 +9,16 @@ app.use(cors({
 }))
 
 app.get(":endpoint([\\/\\w\\.-]*)", (req, res) => {
-    let endpoint = "https://exercism.org/api/v2/" + req.params.endpoint
+    let endpoint = "https://exercism.org/api/v2" + req.url
 
-    axios.get(endpoint).then(response => {
-        res.json(response.data)
-    }).catch(error => {
-        res.json(error)
-    })
+    if(req.url !== "/favicon.ico"){
+        console.log(endpoint);
+        axios.get(endpoint).then(response => {
+            res.json(response.data)
+        }).catch(error => {
+            res.json(error)
+        })
+    }
 })
 
 app.listen(port)
